@@ -1,0 +1,103 @@
+{
+  "version": "0.1.0",
+  "friendlyName": "Lutron Integration Protocol",
+  "serviceName": "lutron-integration-protocol",
+  "manufacturer": "Lutron",
+  "model": "multiple",
+  "buildUrls": {
+    "linux": "https://s3.eu-central-1.amazonaws.com/catch-connect-services/577820df-5f19-43ed-baca-8c0dfcb4eb17-0.0.1-linux.ccs",
+    "mac": "https://s3.eu-central-1.amazonaws.com/catch-connect-services/577820df-5f19-43ed-baca-8c0dfcb4eb17-0.0.1-mac.ccs",
+    "armv7": "https://s3.eu-central-1.amazonaws.com/catch-connect-services/577820df-5f19-43ed-baca-8c0dfcb4eb17-0.0.1-armv7.ccs",
+    "windows": "https://s3.eu-central-1.amazonaws.com/catch-connect-services/577820df-5f19-43ed-baca-8c0dfcb4eb17-0.0.1-win.ccs.exe"
+  },
+  "parameters": [
+    {
+      "parameter": "ipAddress",
+      "friendlyName": "IP Address",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "placeholder": "Enter the IP address or host name.",
+      "tooltip": ""
+    },
+    {
+      "parameter": "port",
+      "friendlyName": "Port",
+      "type": "number",
+      "default": 23,
+      "required": true,
+      "placeholder": "Optional TCP port (defaults to 4998).",
+      "tooltip": ""
+    },
+    {
+      "parameter": "login",
+      "friendlyName": "Login",
+      "type": "string",
+      "default": "lutron",
+      "required": true,
+      "placeholder": "Enter the login or username.",
+      "tooltip": ""
+    },
+    {
+      "parameter": "password",
+      "friendlyName": "Password",
+      "type": "password",
+      "default": "integration",
+      "required": true,
+      "placeholder": "Enter the password.",
+      "tooltip": ""
+    },
+    {
+      "parameter": "heartbeatInterval",
+      "friendlyName": "Heartbeat Interval",
+      "type": "string",
+      "default": "10000",
+      "required": true,
+      "placeholder": "Enter the heartbeat interval.",
+      "tooltip": "The interval between sending heartbeat messages in milliseconds. The heartbeat is used to detect unexpected disconnects and automatically reconnect."
+    }
+  ],
+  "commands": [
+    {
+      "friendlyName": "Connect",
+      "editable": false,
+      "pattern": "connect",
+      "useHex": false,
+      "endWith": "n",
+      "descriptions": [
+        {
+          "title": "Description",
+          "body": "Connects the socket. This command is sent automatically at startup."
+        }
+      ]
+    },
+    {
+      "friendlyName": "Close",
+      "editable": false,
+      "pattern": "close",
+      "useHex": false,
+      "endWith": "n",
+      "descriptions": [
+        {
+          "title": "Description",
+          "body": "Closes the socket."
+        }
+      ]
+    },    
+    {
+      "friendlyName": "Your Command",
+      "editable": true,
+      "pattern": "The command to send",
+      "useHex": false,
+      "endWith": "n",
+      "descriptions": [
+        {
+          "title": "Description",
+          "body": "Sends COMMAND directly to the device."
+        }
+      ]
+    }
+  ],
+  "responses": [    
+  ]
+}
