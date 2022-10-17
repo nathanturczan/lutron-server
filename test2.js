@@ -6,12 +6,12 @@ const wss = new WebSocket.Server({port: 8082});
 wss.on("connection", ws => {
     console.log("Wave of Wellness Device Connected");
 
-    
+
     //This is all being run once the device connects
     //We run the command once, and then that's it
     //We want to create a message that is passed in as a parameter
     //logic here to run the telnet send command right here
-    
+
     ws.on("message", (data) => {
 
       try {
@@ -19,18 +19,18 @@ wss.on("connection", ws => {
       } catch (error) {
         console.log("Invalid command passed");
       }
-      
+
       // const cmd = '#DEVICE,96,1,3'
-  
+
       client.send(cmd + '\r', (error, data) => {
         if (error) {
           return console.log('error sending a command:', error)
         }
-  
+
         console.log('got response from the server:', data)
       });
     });
-    
+
     ws.on("close", () => {
         console.log("Client has disconnected");
     });
@@ -75,5 +75,5 @@ client.on('connect', function () {
 
 client.on('ready', function () {
   console.log('ready, trying to send a command!!!')
-  
+
 })
