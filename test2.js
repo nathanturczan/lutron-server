@@ -13,22 +13,20 @@ wss.on("connection", ws => {
     //logic here to run the telnet send command right here
     
     ws.on("message", (data) => {
-
-      try {
+        console.log("received Message"); //For testing
         const cmd = data.toString();
-      } catch (error) {
-        console.log("Invalid command passed");
-      }
-      
-      // const cmd = '#DEVICE,96,1,3'
-  
-      client.send(cmd + '\r', (error, data) => {
-        if (error) {
-          return console.log('error sending a command:', error)
+        console.log(cmd); //For testing
+        
+        // const cmd = '#DEVICE,96,1,3'
+        
+        client.send(cmd + '\r', (error, data) => {
+            if (error) {
+                return console.log('error sending a command:', error)
         }
-  
+        
         console.log('got response from the server:', data)
-      });
+        });
+        
     });
     
     ws.on("close", () => {
@@ -70,8 +68,6 @@ client.on('failedlogin', function () {
 client.on('connect', function () {
   console.log('trying to log in')
 })
-
-
 
 client.on('ready', function () {
   console.log('ready, trying to send a command!!!')
