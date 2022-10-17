@@ -12,20 +12,29 @@ wss.on("connection", ws => {
     //We want to create a message that is passed in as a parameter
     //logic here to run the telnet send command right here
     
-    
-    const cmd = '#DEVICE,96,1,3'
+    ws.on("message", (data) => {
 
-    client.send(cmd + '\r', (error, data) => {
-      if (error) {
-        return console.log('error sending a command:', error)
+      try {
+        const cmd = data.toString();
+      } catch (error) {
+        console.log("Invalid command passed");
       }
-
-      console.log('got response from the server:', data)
+      
+      // const cmd = '#DEVICE,96,1,3'
+  
+      client.send(cmd + '\r', (error, data) => {
+        if (error) {
+          return console.log('error sending a command:', error)
+        }
+  
+        console.log('got response from the server:', data)
+      });
     });
     
     ws.on("close", () => {
         console.log("Client has disconnected");
     });
+
 });
 
 const ipAddress = '192.168.15.90'
