@@ -14,60 +14,53 @@ const input = new midi.Input();
 input.getPortCount();
 
 // Get the name of a specified input port.
-console.log("midi port: ", input.getPortName(1));
-
-// Configure a callback.
-input.on('message', (deltaTime, midimessage) => {
-    // The message is an array of numbers corresponding to the MIDI bytes:
-    //   [status, data1, data2]
-    // https://www.cs.cf.ac.uk/Dave/Multimedia/node158.html has some helpful
-    // information interpreting the messages.
-    //console.log(`m: ${message} d: ${deltaTime}`);
-    if (midimessage[0] == 148) {
-        if (midimessage[1] < 9) {
-            console.log((((midimessage[1] + 1) % 12) + 12));
-        } else {
-            console.log((midimessage[1] + 1));
-        }
-
-    }
-
-});
+console.log("midi port: ", input.getPortName(3));
 
 // Open the first available input port.
-input.openPort(1);
+input.openPort(3);
+var old;
+input.on('message', (deltaTime, midimessage) => {
+    var cmd;
+    
+    if (midimessage[0] == 148 && midimessage[2] != 0 ) {
 
+        console.log(midimessage[2]); //For testing
+        if (midimessage[1] < 9) {
+            cmd = ((midimessage[1] + 1) % 12) + 12;
+        } else {
+            cmd = midimessage[1] + 1;
+        }
+
+        
+
+        
+        cmd = '#DEVICE,35,'+cmd.toString()+',3';
+        console.log(old, cmd)
+
+            // const cmd = '#DEVICE,96,1,3'
+        if (cmd!=old){
+            client.send(cmd + '\r', (error, data) => {
+            if (error) {
+                return console.log('error sending a command:', error)
+            }
+
+            console.log('got response from the server:', data)
+        });
+
+        }
+        old = cmd;
+        console.log(old);
+        
+        
+
+
+    }
+});
 
 wss.on("connection", ws => {
     console.log("Wave of Wellness Device Connected");
 
-
-    if (midimessage[0] == 148) {
-        if (midimessage[1] < 9) {
-            const cmd = ((midimessage[1] + 1) % 12) + 12;
-
-        } else {
-            const cmd = midimessage[1] + 1;
-        }
-
-        ws.on("message", (data) => {
-            console.log("received Message"); //For testing
-            cmd = "#DEVICE,35,"+cmd.toString()+",3";
-            console.log("stringified: ", cmd)
-
-            // const cmd = '#DEVICE,96,1,3'
-
-            client.send(cmd + '\r', (error, data) => {
-                if (error) {
-                    return console.log('error sending a command:', error)
-                }
-
-                console.log('got response from the server:', data)
-            });
-
-        });
-
-    }
+    
 
     //This is all being run once the device connects
     //We run the command once, and then that's it
