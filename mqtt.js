@@ -5,19 +5,23 @@ const login = 'Wellness'
 const password = 'FutureCare@dm'
 
 /// AWS IoT configuration
-const privateKeyPath = path.resolve(__dirname, '~/aws-certs/GWI_rPi_Gateway.private.key');
-const certPath = path.resolve(__dirname, '~/aws-certs/GWI_rPi_Gateway.cert.pem');
-const caCertPath = path.resolve(__dirname, '~/aws-certs/root-CA.crt');
+const certPathName = '/home/gwi/aws-certs/GWI_rPi_Gateway.cert.pem';
+const privateKeyPathName = '/home/gwi/aws-certs/GWI_rPi_Gateway.private.key';
+const caCertPathName = '/home/gwi/aws-certs/root-CA.crt';
+
 const clientId = 'your-device-id';
 const endpoint = 'aau4h3wa11hq0-ats.iot.us-west-1.amazonaws.com';
 const region = 'us-west-1';
 const topic = 'lutron-messages';
 
-
 const fs = require('fs');
 const path = require('path');
 const AWSIoT = require('aws-iot-device-sdk');
 const Telnet = require('telnet-client');
+
+const privateKeyPath = path.resolve(__dirname, privateKeyPathName);
+const certPath = path.resolve(__dirname, certPathName);
+const caCertPath = path.resolve(__dirname, caCertPathName);
 // const privateKey = fs.readFileSync(privateKeyPath);
 // const cert = fs.readFileSync(certPath);
 // const caCert = fs.readFileSync(caCertPath);
