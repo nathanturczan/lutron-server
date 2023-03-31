@@ -5,7 +5,7 @@ const iotsdk = require("aws-iot-device-sdk-v2");
 const { exit } = require("process");
 const mqtt_lutron = iotsdk.mqtt;
 const TextDecoder = require("util").TextDecoder;
-const common_args = require("../../util/cli_args");
+const common_args = require("./cli_args");
 
 const ipAddress = "192.168.15.90";
 const port = 23;
